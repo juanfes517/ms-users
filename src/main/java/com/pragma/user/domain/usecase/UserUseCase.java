@@ -12,6 +12,9 @@ public class UserUseCase implements IUserServicePort {
 
     @Override
     public User saveUser(User user) {
+        user.validateDocumentId();
+        user.validateCellPhoneNumber();
+
         return userPersistencePort.save(user);
     }
 }
