@@ -1,6 +1,7 @@
 package com.pragma.user.domain.model;
 
 import com.pragma.user.domain.exception.InvalidCellPhoneNumberException;
+import com.pragma.user.domain.exception.InvalidDocumentIdException;
 import com.pragma.user.domain.helper.constants.ExceptionConstants;
 import org.junit.jupiter.api.Test;
 
@@ -58,5 +59,27 @@ class UserTest {
 
         // Assert
         assertEquals(ExceptionConstants.CELL_PHONE_NUMBER_IS_NOT_A_NUMBER_MESSAGE, exception.getMessage());
+    }
+
+    @Test
+    void validateDocumentIdWhenIsValid() {
+        User user = new User();
+        user.setDocumentId("123456789");
+
+        boolean result = user.validateDocumentId();
+
+        assertTrue(result);
+    }
+
+    @Test
+    void validateDocumentIdWhenItHasInvalidCharacters() {
+        User user = new User();
+        user.setDocumentId("asfrdsasd");
+
+        // Act
+        InvalidDocumentIdException exception = assertThrows(InvalidDocumentIdException.class, user::validateDocumentId);
+
+        // Assert
+        assertEquals(ExceptionConstants.DOCUMENT_ID_IS_NOT_A_NUMBER_MESSAGE, exception.getMessage());
     }
 }
