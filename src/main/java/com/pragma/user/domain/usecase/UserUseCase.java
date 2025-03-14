@@ -14,6 +14,7 @@ public class UserUseCase implements IUserServicePort {
     public User saveUser(User user) {
         user.validateDocumentId();
         user.validateCellPhoneNumber();
+        user.validateAge();
 
         return userPersistencePort.save(user);
     }
