@@ -1,12 +1,15 @@
 package com.pragma.user.infrastructure.configuration;
 
+import com.pragma.user.application.dto.request.OwnerRequestDto;
 import com.pragma.user.domain.api.IRoleServicePort;
 import com.pragma.user.domain.api.IUserServicePort;
+import com.pragma.user.domain.model.User;
 import com.pragma.user.domain.spi.IRolePersistencePort;
 import com.pragma.user.domain.spi.IUserPersistencePort;
 import com.pragma.user.domain.usecase.RoleUseCase;
 import com.pragma.user.domain.usecase.UserUseCase;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,7 +25,17 @@ public class BeanConfiguration {
 
     @Bean
     public ModelMapper modelMapper() {
-        return new ModelMapper();
+        ModelMapper modelMapper = new ModelMapper();
+
+        modelMapper.addMappings(new PropertyMap<OwnerRequestDto, User>() {
+            @Override
+            protected void configure() {
+                map().setDocumentId(source.getDocumentId());
+                skip(destination.getId());
+            }
+        });
+
+        return modelMapper;
     }
 
     @Bean

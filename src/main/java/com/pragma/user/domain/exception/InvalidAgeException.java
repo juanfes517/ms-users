@@ -1,8 +1,8 @@
 package com.pragma.user.domain.exception;
 
-public class InvalidAgeExeption extends RuntimeException {
+public class InvalidAgeException extends RuntimeException {
 
-    public InvalidAgeExeption(String message) {
+    public InvalidAgeException(String message) {
         super(message);
     }
 }

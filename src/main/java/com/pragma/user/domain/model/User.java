@@ -1,6 +1,6 @@
 package com.pragma.user.domain.model;
 
-import com.pragma.user.domain.exception.InvalidAgeExeption;
+import com.pragma.user.domain.exception.InvalidAgeException;
 import com.pragma.user.domain.exception.InvalidCellPhoneNumberException;
 import com.pragma.user.domain.exception.InvalidDocumentIdException;
 import com.pragma.user.domain.helper.constants.ExceptionConstants;
@@ -55,7 +55,7 @@ public class User {
         int age = Period.between(this.dateOfBirth, LocalDate.now()).getYears();
 
         if (age < 18) {
-            throw  new InvalidAgeExeption(ExceptionConstants.LEGAL_AGE_MESSAGE);
+            throw  new InvalidAgeException(ExceptionConstants.LEGAL_AGE_MESSAGE);
         }
 
         return true;

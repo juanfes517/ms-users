@@ -1,6 +1,6 @@
 package com.pragma.user.domain.model;
 
-import com.pragma.user.domain.exception.InvalidAgeExeption;
+import com.pragma.user.domain.exception.InvalidAgeException;
 import com.pragma.user.domain.exception.InvalidCellPhoneNumberException;
 import com.pragma.user.domain.exception.InvalidDocumentIdException;
 import com.pragma.user.domain.helper.constants.ExceptionConstants;
@@ -88,7 +88,7 @@ class UserTest {
         int actualYear = LocalDate.now().getYear();
         user.setDateOfBirth(LocalDate.of(actualYear - 10, 5, 17));
 
-        InvalidAgeExeption exeption = assertThrows(InvalidAgeExeption.class, user::validateAge);
+        InvalidAgeException exeption = assertThrows(InvalidAgeException.class, user::validateAge);
 
         assertEquals(ExceptionConstants.LEGAL_AGE_MESSAGE, exeption.getMessage());
     }
