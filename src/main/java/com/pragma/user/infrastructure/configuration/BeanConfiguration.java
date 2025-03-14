@@ -1,7 +1,10 @@
 package com.pragma.user.infrastructure.configuration;
 
+import com.pragma.user.domain.api.IRoleServicePort;
 import com.pragma.user.domain.api.IUserServicePort;
+import com.pragma.user.domain.spi.IRolePersistencePort;
 import com.pragma.user.domain.spi.IUserPersistencePort;
+import com.pragma.user.domain.usecase.RoleUseCase;
 import com.pragma.user.domain.usecase.UserUseCase;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -25,5 +28,10 @@ public class BeanConfiguration {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public IRoleServicePort roleServicePort(IRolePersistencePort rolePersistencePort) {
+        return new RoleUseCase(rolePersistencePort);
     }
 }

@@ -19,6 +19,5 @@ public class RoleEntity {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Column(nullable = false)
     private String description;
 }

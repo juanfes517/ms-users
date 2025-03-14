@@ -3,6 +3,7 @@ package com.pragma.user.application.dto.request;
 import com.pragma.user.application.helper.constants.ExceptionConstants;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -26,7 +27,7 @@ public class OwnerRequestDto {
     @NotBlank(message = ExceptionConstants.CELL_PHONE_NUMBER_CANNOT_BE_BLANK)
     private String cellPhoneNumber;
 
-    @NotBlank(message = ExceptionConstants.DATE_OF_BIRTH_CANNOT_BE_BLANK)
+    @NotNull(message = ExceptionConstants.DATE_OF_BIRTH_CANNOT_BE_BLANK)
     private LocalDate dateOfBirth;
 
     @Email
