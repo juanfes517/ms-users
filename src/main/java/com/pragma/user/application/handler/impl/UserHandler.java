@@ -3,7 +3,6 @@ package com.pragma.user.application.handler.impl;
 import com.pragma.user.application.dto.request.OwnerRequestDto;
 import com.pragma.user.application.dto.response.UserResponseDto;
 import com.pragma.user.application.handler.IUserHandler;
-import com.pragma.user.application.helper.constants.RoleConstants;
 import com.pragma.user.domain.api.IRoleServicePort;
 import com.pragma.user.domain.api.IUserServicePort;
 import com.pragma.user.domain.model.Role;

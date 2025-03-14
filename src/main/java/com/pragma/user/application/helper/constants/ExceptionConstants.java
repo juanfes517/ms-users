@@ -1,6 +1,9 @@
 package com.pragma.user.application.helper.constants;
 
 public class ExceptionConstants {
+
+    private ExceptionConstants() {}
+
     public static final String NAME_CANNOT_BE_BLANK = "Name cannot be blank";
     public static final String LAST_NAME_CANNOT_BE_BLANK = "Last name cannot be blank";
     public static final String DOCUMENT_ID_CANNOT_BE_BLANK = "Document id cannot be blank";
