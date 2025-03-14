@@ -2,6 +2,7 @@ package com.pragma.user.application.handler.impl;
 
 import com.pragma.user.application.dto.request.OwnerRequestDto;
 import com.pragma.user.application.dto.response.UserResponseDto;
+import com.pragma.user.domain.api.IRoleServicePort;
 import com.pragma.user.domain.api.IUserServicePort;
 import com.pragma.user.domain.model.Role;
 import com.pragma.user.domain.model.User;
@@ -31,6 +32,9 @@ class UserHandlerTest {
     @Mock
     private PasswordEncoder passwordEncoder;
 
+    @Mock
+    private IRoleServicePort roleServicePort;
+
     @Test
     void saveOwnerWhenIsValid() {
         OwnerRequestDto ownerRequestDto = OwnerRequestDto.builder()
@@ -39,8 +43,7 @@ class UserHandlerTest {
                 .password("password")
                 .build();
 
-        Role role = new Role();
-        role.setName("ROLE_OWNER");
+        Role role = new Role(1L, "ROLE_OWNER", "testDescription");
 
         User userMapped = User.builder()
                 .name("Paco")
@@ -65,6 +68,8 @@ class UserHandlerTest {
 
         when(passwordEncoder.encode(ownerRequestDto.getPassword()))
                 .thenReturn("encryptedPassword");
+        when(roleServicePort.findRoleByName("ROLE_OWNER"))
+                .thenReturn(role);
         when(modelMapper.map(ownerRequestDto, User.class))
                 .thenReturn(userMapped);
         when(userServicePort.saveUser(userMapped))
