@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### Environment variables ###
+.env
+
 ### STS ###
 .apt_generated
 .classpath
@@ -31,3 +34,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+## SQL imports ###
+src/main/resources/import.sql
