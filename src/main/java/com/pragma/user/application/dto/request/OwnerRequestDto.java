@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Setter
 @Getter
 @Builder
-public class UserRequestDto {
+public class OwnerRequestDto {
 
     @NotBlank(message = ExceptionConstants.NAME_CANNOT_BE_BLANK)
     private String name;
