@@ -62,4 +62,66 @@ class UserUseCaseTest {
         assertEquals(user.getPassword(), savedUser.getPassword());
         assertEquals(user.getRole().getName(), savedUser.getRole().getName());
     }
+
+    @Test
+    void userHasRole_returnsTrue_whenUserHasOwnerRole() {
+        Long userId = 1L;
+        String roleName = "ROLE_OWNER";
+
+        Role role = Role.builder()
+                .id(1L)
+                .name("ROLE_OWNER")
+                .description("restaurant owner")
+                .build();
+
+        User user = User.builder()
+                .id(1L)
+                .name("Pedro")
+                .lastName("Lopez")
+                .documentId("1234567890")
+                .cellPhoneNumber("+571234567890")
+                .dateOfBirth(LocalDate.of(1999, 3, 13))
+                .email("pedro@mail.com")
+                .password("123456")
+                .role(role)
+                .build();
+
+        when(userPersistencePort.findById(userId))
+                .thenReturn(user);
+
+        boolean result = userUseCase.userHasRole(userId, roleName);
+
+        assertTrue(result);
+    }
+
+    @Test
+    void userHasRole_ReturnsTrue_WhenUserDosNotHaveOwnerRole() {
+        Long userId = 1L;
+        String roleName = "ROLE_OWNER";
+
+        Role role = Role.builder()
+                .id(1L)
+                .name("ROLE_EMPLOYEE")
+                .description("restaurant owner")
+                .build();
+
+        User user = User.builder()
+                .id(1L)
+                .name("Pedro")
+                .lastName("Lopez")
+                .documentId("1234567890")
+                .cellPhoneNumber("+571234567890")
+                .dateOfBirth(LocalDate.of(1999, 3, 13))
+                .email("pedro@mail.com")
+                .password("123456")
+                .role(role)
+                .build();
+
+        when(userPersistencePort.findById(userId))
+                .thenReturn(user);
+
+        boolean result = userUseCase.userHasRole(userId, roleName);
+
+        assertFalse(result);
+    }
 }
