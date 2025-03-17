@@ -2,6 +2,8 @@ package com.pragma.user.infrastructure.out.jpa.adapter;
 
 import com.pragma.user.domain.model.User;
 import com.pragma.user.domain.spi.IUserPersistencePort;
+import com.pragma.user.infrastructure.exception.UserNotFoundException;
+import com.pragma.user.infrastructure.helper.constants.ExceptionConstants;
 import com.pragma.user.infrastructure.out.jpa.entity.UserEntity;
 import com.pragma.user.infrastructure.out.jpa.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,5 +25,13 @@ public class UserJpaAdapter implements IUserPersistencePort {
         UserEntity savedUserEntity = userRepository.save(mappedUserEntity);
 
         return modelMapper.map(savedUserEntity, User.class);
+    }
+
+    @Override
+    public User findById(Long id) {
+        UserEntity userEntity = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(ExceptionConstants.USER_NOT_FOUND));
+
+        return modelMapper.map(userEntity, User.class);
     }
 }

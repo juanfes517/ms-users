@@ -36,4 +36,9 @@ public class UserHandler implements IUserHandler {
 
         return modelMapper.map(userSaved, UserResponseDto.class);
     }
+
+    @Override
+    public boolean userHasRole(Long userId, String roleName) {
+        return userServicePort.userHasRole(userId, roleName);
+    }
 }
