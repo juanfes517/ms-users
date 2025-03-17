@@ -82,6 +82,29 @@ class UserHandlerTest {
         assertNotNull(userResponseDto);
         assertEquals("Paco", result.getName());
         assertEquals("Torres", result.getLastName());
+    }
 
+    @Test
+    void userHasRole_ShouldReturnTrue_WhenRoleNameMatches() {
+        Long userId = 1L;
+        String roleName = "ROLE_OWNER";
+
+        when(userServicePort.userHasRole(userId, roleName)).thenReturn(true);
+
+        boolean result = userHandler.userHasRole(userId, roleName);
+
+        assertTrue(result);
+    }
+
+    @Test
+    void userHasRole_ShouldReturnFalse_WhenRoleNameDoesNotMatch() {
+        Long userId = 1L;
+        String roleName = "ROLE_EMPLOYEE";
+
+        when(userServicePort.userHasRole(userId, roleName)).thenReturn(false);
+
+        boolean result = userHandler.userHasRole(userId, roleName);
+
+        assertFalse(result);
     }
 }
