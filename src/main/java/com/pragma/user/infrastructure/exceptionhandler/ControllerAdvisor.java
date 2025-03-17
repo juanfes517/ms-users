@@ -5,6 +5,7 @@ import com.pragma.user.domain.exception.InvalidAgeException;
 import com.pragma.user.domain.exception.InvalidCellPhoneNumberException;
 import com.pragma.user.domain.exception.InvalidDocumentIdException;
 import com.pragma.user.infrastructure.exception.RoleNotFoundException;
+import com.pragma.user.infrastructure.exception.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -62,6 +63,16 @@ public class ControllerAdvisor {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(RoleNotFoundException.class)
     public ExceptionResponseDto handleRoleNotFoundException(RoleNotFoundException e) {
+        log.error(e.getMessage());
+        return ExceptionResponseDto.builder()
+                .message(e.getMessage())
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(UserNotFoundException.class)
+    public ExceptionResponseDto handleUserNotFoundException(UserNotFoundException e) {
         log.error(e.getMessage());
         return ExceptionResponseDto.builder()
                 .message(e.getMessage())

@@ -35,6 +35,11 @@ public class UserRestController {
                 .body(userHandler.saveOwner(ownerRequestDto));
     }
 
+    @Operation(summary = ApiConstants.USER_HAS_ROLE_DESCRIPTION)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = ApiConstants.SUCCESS_DESCRIPTION, content = @Content),
+            @ApiResponse(responseCode = "404", description = ApiConstants.NOT_FOUND_DESCRIPTION, content = @Content)
+    })
     @GetMapping("/{user-id}/has-role")
     public ResponseEntity<Boolean> userHasRole(@PathVariable("user-id") Long userId, @RequestParam String roleName) {
         return ResponseEntity.ok(userHandler.userHasRole(userId, roleName));
