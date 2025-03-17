@@ -6,4 +6,6 @@ import com.pragma.user.application.dto.response.UserResponseDto;
 public interface IUserHandler {
 
     UserResponseDto saveOwner(OwnerRequestDto ownerRequestDto);
+
+    boolean userHasRole(Long userId, String roleName);
 }
