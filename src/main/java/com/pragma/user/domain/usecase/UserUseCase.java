@@ -18,4 +18,12 @@ public class UserUseCase implements IUserServicePort {
 
         return userPersistencePort.save(user);
     }
+
+    @Override
+    public boolean userHasRole(Long userId, String roleName) {
+        User user = userPersistencePort.findById(userId);
+        String userRole = user.getRole().getName();
+
+        return roleName.equals(userRole);
+    }
 }
