@@ -8,4 +8,6 @@ public interface IUserHandler {
     UserResponseDto saveOwner(OwnerRequestDto ownerRequestDto);
 
     boolean userHasRole(Long userId, String roleName);
+
+    boolean userHasEmail(Long userId, String email);
 }

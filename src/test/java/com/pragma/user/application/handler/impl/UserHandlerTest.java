@@ -107,4 +107,28 @@ class UserHandlerTest {
 
         assertFalse(result);
     }
+
+    @Test
+    void userHasEmail_ShouldReturnTrue_WhenEmailMatches() {
+        Long userId = 1L;
+        String userEmail = "testTrue@email.com";
+
+        when(userServicePort.userHasEmail(userId, userEmail)).thenReturn(true);
+
+        boolean result = userHandler.userHasEmail(userId, userEmail);
+
+        assertTrue(result);
+    }
+
+    @Test
+    void userHasRole_ShouldReturnFalse_WhenEmailDoesNotMatch() {
+        Long userId = 1L;
+        String userEmail = "testFalse@email.com";
+
+        when(userServicePort.userHasEmail(userId, userEmail)).thenReturn(false);
+
+        boolean result = userHandler.userHasEmail(userId, userEmail);
+
+        assertFalse(result);
+    }
 }

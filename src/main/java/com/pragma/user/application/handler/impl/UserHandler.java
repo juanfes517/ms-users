@@ -41,4 +41,9 @@ public class UserHandler implements IUserHandler {
     public boolean userHasRole(Long userId, String roleName) {
         return userServicePort.userHasRole(userId, roleName);
     }
+
+    @Override
+    public boolean userHasEmail(Long userId, String email) {
+        return userServicePort.userHasEmail(userId, email);
+    }
 }

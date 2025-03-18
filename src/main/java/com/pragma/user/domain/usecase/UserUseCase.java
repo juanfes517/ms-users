@@ -26,4 +26,12 @@ public class UserUseCase implements IUserServicePort {
 
         return roleName.equals(userRole);
     }
+
+    @Override
+    public boolean userHasEmail(Long userId, String email) {
+        User user = userPersistencePort.findById(userId);
+        String userEmail = user.getEmail();
+
+        return email.equals(userEmail);
+    }
 }
