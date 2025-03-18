@@ -44,4 +44,14 @@ public class UserRestController {
     public ResponseEntity<Boolean> userHasRole(@PathVariable("user-id") Long userId, @RequestParam String roleName) {
         return ResponseEntity.ok(userHandler.userHasRole(userId, roleName));
     }
+
+    @Operation(summary = ApiConstants.USER_HAS_EMAIL_DESCRIPTION)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = ApiConstants.SUCCESS_DESCRIPTION, content = @Content),
+            @ApiResponse(responseCode = "404", description = ApiConstants.NOT_FOUND_DESCRIPTION, content = @Content)
+    })
+    @GetMapping("/{user-id}/has-email")
+    public ResponseEntity<Boolean> userHasEmail(@PathVariable("user-id") Long userId, @RequestParam String email) {
+        return ResponseEntity.ok(userHandler.userHasEmail(userId, email));
+    }
 }
