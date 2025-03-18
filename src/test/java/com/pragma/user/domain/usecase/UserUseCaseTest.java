@@ -124,4 +124,66 @@ class UserUseCaseTest {
 
         assertFalse(result);
     }
+
+    @Test
+    void userHasEmail_ReturnsTrue_WhenUserHasEmail() {
+        Long userId = 1L;
+        String email = "test@mail.com";
+
+        Role role = Role.builder()
+                .id(1L)
+                .name("ROLE_OWNER")
+                .description("restaurant owner")
+                .build();
+
+        User user = User.builder()
+                .id(1L)
+                .name("Pedro")
+                .lastName("Lopez")
+                .documentId("1234567890")
+                .cellPhoneNumber("+571234567890")
+                .dateOfBirth(LocalDate.of(1999, 3, 13))
+                .email("test@mail.com")
+                .password("123456")
+                .role(role)
+                .build();
+
+        when(userPersistencePort.findById(userId))
+                .thenReturn(user);
+
+        boolean result = userUseCase.userHasEmail(userId, email);
+
+        assertTrue(result);
+    }
+
+    @Test
+    void userHasEmail_ReturnsTrue_WhenUserDoesNotHaveEmail() {
+        Long userId = 1L;
+        String email = "test@mail.com";
+
+        Role role = Role.builder()
+                .id(1L)
+                .name("ROLE_OWNER")
+                .description("restaurant owner")
+                .build();
+
+        User user = User.builder()
+                .id(1L)
+                .name("Pedro")
+                .lastName("Lopez")
+                .documentId("1234567890")
+                .cellPhoneNumber("+571234567890")
+                .dateOfBirth(LocalDate.of(1999, 3, 13))
+                .email("other@mail.com")
+                .password("123456")
+                .role(role)
+                .build();
+
+        when(userPersistencePort.findById(userId))
+                .thenReturn(user);
+
+        boolean result = userUseCase.userHasEmail(userId, email);
+
+        assertFalse(result);
+    }
 }
