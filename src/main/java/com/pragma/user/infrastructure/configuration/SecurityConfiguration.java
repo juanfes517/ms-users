@@ -2,12 +2,11 @@ package com.pragma.user.infrastructure.configuration;
 
 import com.pragma.user.domain.model.RoleEnum;
 import com.pragma.user.domain.spi.IJwtSecurityServicePort;
-import com.pragma.user.infrastructure.configuration.securityFilter.JwtTokenValidator;
+import com.pragma.user.infrastructure.configuration.securityfilter.JwtTokenValidator;
 import com.pragma.user.infrastructure.helper.constants.SecurityConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;

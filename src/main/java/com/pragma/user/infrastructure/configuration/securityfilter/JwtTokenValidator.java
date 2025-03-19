@@ -1,4 +1,4 @@
-package com.pragma.user.infrastructure.configuration.securityFilter;
+package com.pragma.user.infrastructure.configuration.securityfilter;
 
 import com.pragma.user.domain.spi.IJwtSecurityServicePort;
 import jakarta.servlet.FilterChain;
