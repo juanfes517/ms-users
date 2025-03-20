@@ -1,4 +1,4 @@
-package com.pragma.user.infrastructure.configuration.securityfilter;
+package com.pragma.user.infrastructure.configuration;
 
 import com.pragma.user.application.dto.request.EmployeeRequestDto;
 import com.pragma.user.application.dto.request.OwnerRequestDto;

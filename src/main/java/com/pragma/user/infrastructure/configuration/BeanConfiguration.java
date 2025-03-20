@@ -5,10 +5,7 @@ import com.pragma.user.domain.api.IAuthServicePort;
 import com.pragma.user.domain.api.IRoleServicePort;
 import com.pragma.user.domain.api.IUserServicePort;
 import com.pragma.user.domain.model.User;
-import com.pragma.user.domain.spi.IAuthSecurityPort;
-import com.pragma.user.domain.spi.IJwtSecurityServicePort;
-import com.pragma.user.domain.spi.IRolePersistencePort;
-import com.pragma.user.domain.spi.IUserPersistencePort;
+import com.pragma.user.domain.spi.*;
 import com.pragma.user.domain.usecase.AuthUseCase;
 import com.pragma.user.domain.usecase.RoleUseCase;
 import com.pragma.user.domain.usecase.UserUseCase;
@@ -21,8 +18,8 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfiguration {
 
     @Bean
-    public IUserServicePort userServicePort(IUserPersistencePort userPersistencePort) {
-        return new UserUseCase(userPersistencePort);
+    public IUserServicePort userServicePort(IUserPersistencePort userPersistencePort, IFoodCourtExternalService foodCourtExternalService, IJwtSecurityServicePort jwtSecurityServicePort) {
+        return new UserUseCase(userPersistencePort, foodCourtExternalService, jwtSecurityServicePort);
     }
 
 
