@@ -72,7 +72,7 @@ class UserHandlerTest {
                 .thenReturn(role);
         when(modelMapper.map(ownerRequestDto, User.class))
                 .thenReturn(userMapped);
-        when(userServicePort.saveUser(userMapped))
+        when(userServicePort.saveOwner(userMapped))
                 .thenReturn(userSaved);
         when(modelMapper.map(userSaved, UserResponseDto.class))
                 .thenReturn(userResponseDto);

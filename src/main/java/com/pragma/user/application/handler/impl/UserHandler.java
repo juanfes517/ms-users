@@ -32,7 +32,7 @@ public class UserHandler implements IUserHandler {
 
         User userMapped = modelMapper.map(ownerRequestDto, User.class);
         userMapped.setRole(role);
-        User userSaved = userServicePort.saveUser(userMapped);
+        User userSaved = userServicePort.saveOwner(userMapped);
 
         return modelMapper.map(userSaved, UserResponseDto.class);
     }

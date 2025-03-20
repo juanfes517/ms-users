@@ -25,7 +25,7 @@ class UserUseCaseTest {
     private IUserPersistencePort userPersistencePort;
 
     @Test
-    void saveUser() {
+    void saveOwner() {
         // Arrange
         Role role = Role.builder()
                 .id(1L)
@@ -48,7 +48,7 @@ class UserUseCaseTest {
         when(userPersistencePort.save(any(User.class))).thenReturn(user);
 
         // Act
-        User savedUser = userUseCase.saveUser(user);
+        User savedUser = userUseCase.saveOwner(user);
 
         // Assert
         assertNotNull(savedUser);
