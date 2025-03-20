@@ -28,7 +28,7 @@ public class UserRestController {
             @ApiResponse(responseCode = "404", description = ApiConstants.NOT_FOUND_DESCRIPTION, content = @Content),
             @ApiResponse(responseCode = "409", description = ApiConstants.CONFLICT_DESCRIPTION, content = @Content)
     })
-    @PostMapping
+    @PostMapping("/owner")
     public ResponseEntity<UserResponseDto> saveOwner(@Valid @RequestBody OwnerRequestDto ownerRequestDto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)

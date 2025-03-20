@@ -2,7 +2,8 @@ package com.pragma.user.domain.model;
 
 public enum RoleEnum {
 
-    OWNER("ROLE_OWNER");
+    ADMIN("ADMIN"),
+    OWNER("OWNER");
 
     private final String roleName;
 

@@ -1,19 +1,21 @@
 package com.pragma.user.infrastructure.configuration;
 
 import com.pragma.user.application.dto.request.OwnerRequestDto;
+import com.pragma.user.domain.api.IAuthServicePort;
 import com.pragma.user.domain.api.IRoleServicePort;
 import com.pragma.user.domain.api.IUserServicePort;
 import com.pragma.user.domain.model.User;
+import com.pragma.user.domain.spi.IAuthSecurityPort;
+import com.pragma.user.domain.spi.IJwtSecurityServicePort;
 import com.pragma.user.domain.spi.IRolePersistencePort;
 import com.pragma.user.domain.spi.IUserPersistencePort;
+import com.pragma.user.domain.usecase.AuthUseCase;
 import com.pragma.user.domain.usecase.RoleUseCase;
 import com.pragma.user.domain.usecase.UserUseCase;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class BeanConfiguration {
@@ -39,12 +41,12 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public IRoleServicePort roleServicePort(IRolePersistencePort rolePersistencePort) {
+        return new RoleUseCase(rolePersistencePort);
     }
 
     @Bean
-    public IRoleServicePort roleServicePort(IRolePersistencePort rolePersistencePort) {
-        return new RoleUseCase(rolePersistencePort);
+    public IAuthServicePort authServicePort(IJwtSecurityServicePort jwtSecurityServicePort, IAuthSecurityPort authSecurityPort) {
+        return new AuthUseCase(jwtSecurityServicePort, authSecurityPort);
     }
 }
