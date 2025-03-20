@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface IRolePersistencePort {
 
-    Optional<Role> findRoleByName(String roleName);
+    Role findRoleByName(String roleName);
 
     Role saveRole(Role role);
 }
