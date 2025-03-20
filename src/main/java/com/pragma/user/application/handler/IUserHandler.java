@@ -1,11 +1,11 @@
 package com.pragma.user.application.handler;
 
 import com.pragma.user.application.dto.request.OwnerRequestDto;
-import com.pragma.user.application.dto.response.UserResponseDto;
+import com.pragma.user.application.dto.response.OwnerResponseDto;
 
 public interface IUserHandler {
 
-    UserResponseDto saveOwner(OwnerRequestDto ownerRequestDto);
+    OwnerResponseDto saveOwner(OwnerRequestDto ownerRequestDto);
 
     boolean userHasRole(Long userId, String roleName);
 

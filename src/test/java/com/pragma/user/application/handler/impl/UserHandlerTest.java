@@ -1,7 +1,7 @@
 package com.pragma.user.application.handler.impl;
 
 import com.pragma.user.application.dto.request.OwnerRequestDto;
-import com.pragma.user.application.dto.response.UserResponseDto;
+import com.pragma.user.application.dto.response.OwnerResponseDto;
 import com.pragma.user.domain.api.IRoleServicePort;
 import com.pragma.user.domain.api.IUserServicePort;
 import com.pragma.user.domain.model.Role;
@@ -60,7 +60,7 @@ class UserHandlerTest {
                 .role(role)
                 .build();
 
-        UserResponseDto userResponseDto = UserResponseDto.builder()
+        OwnerResponseDto ownerResponseDto = OwnerResponseDto.builder()
                 .id(1L)
                 .name("Paco")
                 .lastName("Torres")
@@ -74,12 +74,12 @@ class UserHandlerTest {
                 .thenReturn(userMapped);
         when(userServicePort.saveOwner(userMapped))
                 .thenReturn(userSaved);
-        when(modelMapper.map(userSaved, UserResponseDto.class))
-                .thenReturn(userResponseDto);
+        when(modelMapper.map(userSaved, OwnerResponseDto.class))
+                .thenReturn(ownerResponseDto);
 
-        UserResponseDto result = userHandler.saveOwner(ownerRequestDto);
+        OwnerResponseDto result = userHandler.saveOwner(ownerRequestDto);
 
-        assertNotNull(userResponseDto);
+        assertNotNull(ownerResponseDto);
         assertEquals("Paco", result.getName());
         assertEquals("Torres", result.getLastName());
     }

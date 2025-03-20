@@ -186,4 +186,48 @@ class UserUseCaseTest {
 
         assertFalse(result);
     }
+
+    @Test
+    void saveEmployee_WhenIsSuccessful(){
+        Role role = Role.builder()
+                .id(1L)
+                .name("ROLE_EMPLOYEE")
+                .description("restaurant employee")
+                .build();
+
+        User user = User.builder()
+                .name("Pedro")
+                .lastName("Lopez")
+                .documentId("1234567890")
+                .cellPhoneNumber("+571234567890")
+                .email("pedro@mail.com")
+                .password("encrypted-password")
+                .role(role)
+                .build();
+
+        User savedUser = User.builder()
+                .id(1L)
+                .name("Pedro")
+                .lastName("Lopez")
+                .documentId("1234567890")
+                .cellPhoneNumber("+571234567890")
+                .email("pedro@mail.com")
+                .password("encrypted-password")
+                .role(role)
+                .build();
+
+        when(userPersistencePort.save(user))
+                .thenReturn(savedUser);
+
+        User result = userUseCase.saveEmployee(user);
+
+        assertNotNull(result);
+        assertEquals(savedUser.getName(), result.getName());
+        assertEquals(savedUser.getLastName(), result.getLastName());
+        assertEquals(savedUser.getDocumentId(), result.getDocumentId());
+        assertEquals(savedUser.getCellPhoneNumber(), result.getCellPhoneNumber());
+        assertEquals(savedUser.getEmail(), result.getEmail());
+        assertEquals(savedUser.getPassword(), result.getPassword());
+        assertEquals(savedUser.getRole().getName(), result.getRole().getName());
+    }
 }

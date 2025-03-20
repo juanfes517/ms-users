@@ -1,7 +1,7 @@
 package com.pragma.user.infrastructure.input.rest;
 
 import com.pragma.user.application.dto.request.OwnerRequestDto;
-import com.pragma.user.application.dto.response.UserResponseDto;
+import com.pragma.user.application.dto.response.OwnerResponseDto;
 import com.pragma.user.application.handler.IUserHandler;
 import com.pragma.user.infrastructure.helper.constants.ApiConstants;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,7 +29,7 @@ public class UserRestController {
             @ApiResponse(responseCode = "409", description = ApiConstants.CONFLICT_DESCRIPTION, content = @Content)
     })
     @PostMapping("/owner")
-    public ResponseEntity<UserResponseDto> saveOwner(@Valid @RequestBody OwnerRequestDto ownerRequestDto) {
+    public ResponseEntity<OwnerResponseDto> saveOwner(@Valid @RequestBody OwnerRequestDto ownerRequestDto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(userHandler.saveOwner(ownerRequestDto));
