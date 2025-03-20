@@ -29,25 +29,7 @@ class RoleUseCaseTest {
         Role existingRole = new Role(1L, "testRole", "Role description");
 
         when(rolePersistencePort.findRoleByName(roleName))
-                .thenReturn(Optional.of(existingRole));
-
-        Role result = roleUseCase.findRoleByName(roleName);
-
-        assertNotNull(result);
-        assertEquals(1L, result.getId());
-        assertEquals("testRole", result.getName());
-        assertEquals("Role description", result.getDescription());
-    }
-
-    @Test
-    void findRoleByNameWhenRoleNotFound() {
-        String roleName = "testRole";
-        Role roleSaved = new Role(1L, "testRole", "Role description");
-
-        when(rolePersistencePort.findRoleByName(roleName))
-                .thenReturn(Optional.empty());
-        when(rolePersistencePort.saveRole(any(Role.class)))
-                .thenReturn(roleSaved);
+                .thenReturn(existingRole);
 
         Role result = roleUseCase.findRoleByName(roleName);
 

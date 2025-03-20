@@ -1,6 +1,8 @@
 package com.pragma.user.infrastructure.out.jpa.adapter;
 
 import com.pragma.user.domain.model.Role;
+import com.pragma.user.infrastructure.exception.RoleNotFoundException;
+import com.pragma.user.infrastructure.helper.constants.ExceptionConstants;
 import com.pragma.user.infrastructure.out.jpa.entity.RoleEntity;
 import com.pragma.user.infrastructure.out.jpa.repository.RoleRepository;
 import org.junit.jupiter.api.Test;
@@ -28,7 +30,7 @@ class RoleJpaAdapterTest {
     private ModelMapper modelMapper;
 
     @Test
-    void findRoleByName() {
+    void findRoleByName_WhenIsSuccessful() {
         String roleName = "testRole";
         RoleEntity roleEntity = new RoleEntity(1L, "testRole", "test description");
         Role role = new Role(1L, "testRole", "test description");
@@ -38,12 +40,24 @@ class RoleJpaAdapterTest {
         when(modelMapper.map(roleEntity, Role.class))
                 .thenReturn(role);
 
-        Optional<Role> roleOptional = roleJpaAdapter.findRoleByName(roleName);
+        Role result = roleJpaAdapter.findRoleByName(roleName);
 
-        assertTrue(roleOptional.isPresent());
-        assertEquals(1L, roleOptional.get().getId());
-        assertEquals("testRole", roleOptional.get().getName());
-        assertEquals("test description", roleOptional.get().getDescription());
+        assertNotNull(result);
+        assertEquals(1L, result.getId());
+        assertEquals("testRole", result.getName());
+        assertEquals("test description", result.getDescription());
+    }
+
+    @Test
+    void findRoleByName_WhenIThrowRoleNotFoundException() {
+        String roleName = "testRole";
+
+        when(roleRepository.findByName(roleName))
+                .thenReturn(Optional.empty());
+
+        RoleNotFoundException result = assertThrows(RoleNotFoundException.class, () -> roleJpaAdapter.findRoleByName(roleName));
+
+        assertEquals(ExceptionConstants.ROLE_NOT_FOUND, result.getMessage());
     }
 
     @Test
