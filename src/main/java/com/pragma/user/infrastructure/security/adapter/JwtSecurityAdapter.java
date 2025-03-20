@@ -71,6 +71,17 @@ public class JwtSecurityAdapter implements IJwtSecurityServicePort {
         return getClaim(token, Claims::getSubject);
     }
 
+    @Override
+    public String getSubject() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()){
+            return authentication.getPrincipal().toString();
+        }
+
+        return "";
+    }
+
     private <T> T getClaim(String token, Function<Claims, T> claimsTFunction) {
         Claims claims = extractAllClaims(token);
         return claimsTFunction.apply(claims);
