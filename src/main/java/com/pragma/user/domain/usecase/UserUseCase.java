@@ -2,6 +2,8 @@ package com.pragma.user.domain.usecase;
 
 import com.pragma.user.domain.api.IUserServicePort;
 import com.pragma.user.domain.model.User;
+import com.pragma.user.domain.spi.IFoodCourtExternalService;
+import com.pragma.user.domain.spi.IJwtSecurityServicePort;
 import com.pragma.user.domain.spi.IUserPersistencePort;
 import lombok.RequiredArgsConstructor;
 
@@ -9,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 public class UserUseCase implements IUserServicePort {
 
     private final IUserPersistencePort userPersistencePort;
+    private final IFoodCourtExternalService foodCourtExternalService;
+    private final IJwtSecurityServicePort jwtSecurityServicePort;
 
     @Override
     public User saveOwner(User user) {
@@ -24,7 +28,13 @@ public class UserUseCase implements IUserServicePort {
         user.validateDocumentId();
         user.validateCellPhoneNumber();
 
-        return userPersistencePort.save(user);
+        String tokenEmail = jwtSecurityServicePort.getSubject();
+        User ownerUser = userPersistencePort.findByEmail(tokenEmail);
+        User savedEmployee =  userPersistencePort.save(user);
+
+        foodCourtExternalService.assignEmployeeToRestaurant(savedEmployee.getId(), ownerUser.getId());
+
+        return savedEmployee;
     }
 
     @Override
