@@ -25,20 +25,6 @@ public class BeanConfiguration {
         return new UserUseCase(userPersistencePort);
     }
 
-    @Bean
-    public ModelMapper modelMapper() {
-        ModelMapper modelMapper = new ModelMapper();
-
-        modelMapper.addMappings(new PropertyMap<OwnerRequestDto, User>() {
-            @Override
-            protected void configure() {
-                map().setDocumentId(source.getDocumentId());
-                skip(destination.getId());
-            }
-        });
-
-        return modelMapper;
-    }
 
     @Bean
     public IRoleServicePort roleServicePort(IRolePersistencePort rolePersistencePort) {
