@@ -12,7 +12,7 @@ public class FoodCourtFeignAdapter implements IFoodCourtExternalService {
     private final FoodCourtFeignClient foodCourtFeignClient;
 
     @Override
-    public boolean assignEmployeeToRestaurant(Long employeeId, Long ownerId) {
-        return foodCourtFeignClient.assignEmployeeToRestaurant(employeeId, ownerId);
+    public void assignEmployeeToRestaurant(Long employeeId, Long ownerId) {
+        foodCourtFeignClient.assignEmployeeToRestaurant(employeeId, ownerId);
     }
 }
