@@ -34,8 +34,8 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(http -> {
-                    http.requestMatchers(SecurityConstants.PUBLIC_ENDPOINTS).permitAll();
-                    http.requestMatchers(SecurityConstants.ADMIN_ENDPOINTS).hasRole(RoleEnum.ADMIN.toString());
+                    http.requestMatchers(SecurityConstants.getPublicEndpoints()).permitAll();
+                    http.requestMatchers(SecurityConstants.getAdminEndpoints()).hasRole(RoleEnum.ADMIN.toString());
                     http.anyRequest().authenticated();
                 })
                 .addFilterBefore(new JwtTokenValidator(jwtSecurityServicePort), BasicAuthenticationFilter.class)

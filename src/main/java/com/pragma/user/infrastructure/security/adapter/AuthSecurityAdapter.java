@@ -1,6 +1,5 @@
 package com.pragma.user.infrastructure.security.adapter;
 
-import com.pragma.user.domain.api.IAuthServicePort;
 import com.pragma.user.domain.spi.IAuthSecurityPort;
 import com.pragma.user.infrastructure.security.service.IUserAuthenticationService;
 import lombok.RequiredArgsConstructor;
