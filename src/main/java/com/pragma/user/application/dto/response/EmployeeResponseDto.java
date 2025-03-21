@@ -2,8 +2,6 @@ package com.pragma.user.application.dto.response;
 
 import lombok.*;
 
-import java.time.LocalDate;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter

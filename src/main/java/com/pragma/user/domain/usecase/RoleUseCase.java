@@ -3,7 +3,6 @@ package com.pragma.user.domain.usecase;
 import com.pragma.user.domain.api.IRoleServicePort;
 import com.pragma.user.domain.model.Role;
 import com.pragma.user.domain.spi.IRolePersistencePort;
-import com.pragma.user.infrastructure.exception.RoleNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
