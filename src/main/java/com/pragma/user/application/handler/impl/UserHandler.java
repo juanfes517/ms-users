@@ -62,7 +62,7 @@ public class UserHandler implements IUserHandler {
 
         User user = modelMapper.map(customerRequestDto, User.class);
         user.setRole(role);
-        User userSaved = userServicePort.saveEmployee(user);
+        User userSaved = userServicePort.saveCustomer(user);
 
         return modelMapper.map(userSaved, CustomerResponseDto.class);
     }
