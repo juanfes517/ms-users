@@ -8,7 +8,8 @@ public class SecurityConstants {
             "/v1/api-docs/**",
             "/swagger-ui.html",
             "/swagger-ui/**",
-            "/api/v1/auth/**"
+            "/api/v1/auth/**",
+            "/api/v1/users/customer"
     };
 
     private static final String[] ADMIN_ENDPOINTS = {
