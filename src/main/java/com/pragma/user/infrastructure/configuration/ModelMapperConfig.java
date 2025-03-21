@@ -1,5 +1,6 @@
 package com.pragma.user.infrastructure.configuration;
 
+import com.pragma.user.application.dto.request.CustomerRequestDto;
 import com.pragma.user.application.dto.request.EmployeeRequestDto;
 import com.pragma.user.application.dto.request.OwnerRequestDto;
 import com.pragma.user.domain.model.User;
@@ -24,6 +25,14 @@ public class ModelMapperConfig {
         });
 
         modelMapper.addMappings(new PropertyMap<EmployeeRequestDto, User>() {
+            @Override
+            protected void configure() {
+                map().setDocumentId(source.getDocumentId());
+                skip(destination.getId());
+            }
+        });
+
+        modelMapper.addMappings(new PropertyMap<CustomerRequestDto, User>() {
             @Override
             protected void configure() {
                 map().setDocumentId(source.getDocumentId());

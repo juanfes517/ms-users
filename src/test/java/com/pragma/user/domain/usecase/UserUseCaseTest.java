@@ -249,4 +249,43 @@ class UserUseCaseTest {
         assertEquals(savedEmployee.getPassword(), result.getPassword());
         assertEquals(savedEmployee.getRole().getName(), result.getRole().getName());
     }
+
+    @Test
+    void saveCustomer_WhenIsSuccessful(){
+        User user = User.builder()
+                .name("Pedro")
+                .lastName("Lopez")
+                .documentId("1234567890")
+                .cellPhoneNumber("+571234567890")
+                .email("pedro@mail.com")
+                .password("encrypted-password")
+                .role(new Role(1L, "ROLE_CUSTOMER", "restaurant employee"))
+                .build();
+
+        User savedUser = User.builder()
+                .id(1L)
+                .name("Pedro")
+                .lastName("Lopez")
+                .documentId("1234567890")
+                .cellPhoneNumber("+571234567890")
+                .email("pedro@mail.com")
+                .password("encrypted-password")
+                .role(new Role(1L, "ROLE_CUSTOMER", "restaurant employee"))
+                .build();
+
+        when(userPersistencePort.save(user))
+                .thenReturn(savedUser);
+
+        User result = userUseCase.saveCustomer(user);
+
+        assertNotNull(result);
+        assertEquals(savedUser.getId(), result.getId());
+        assertEquals(savedUser.getName(), result.getName());
+        assertEquals(savedUser.getLastName(), result.getLastName());
+        assertEquals(savedUser.getDocumentId(), result.getDocumentId());
+        assertEquals(savedUser.getCellPhoneNumber(), result.getCellPhoneNumber());
+        assertEquals(savedUser.getEmail(), result.getEmail());
+        assertEquals(savedUser.getPassword(), result.getPassword());
+        assertEquals(savedUser.getRole().getName(), result.getRole().getName());
+    }
 }

@@ -1,7 +1,9 @@
 package com.pragma.user.application.handler.impl;
 
+import com.pragma.user.application.dto.request.CustomerRequestDto;
 import com.pragma.user.application.dto.request.EmployeeRequestDto;
 import com.pragma.user.application.dto.request.OwnerRequestDto;
+import com.pragma.user.application.dto.response.CustomerResponseDto;
 import com.pragma.user.application.dto.response.EmployeeResponseDto;
 import com.pragma.user.application.dto.response.OwnerResponseDto;
 import com.pragma.user.domain.api.IRoleServicePort;
@@ -144,13 +146,80 @@ class UserHandlerTest {
 
         EmployeeResponseDto result = userHandler.saveEmployee(employeeRequestDto);
 
-        assertNotNull(employeeResponseDto);
+        assertNotNull(result);
         assertEquals(employeeResponseDto.getId(), result.getId());
         assertEquals(employeeResponseDto.getName(), result.getName());
         assertEquals(employeeResponseDto.getLastName(), result.getLastName());
         assertEquals(employeeResponseDto.getDocumentId(), result.getDocumentId());
         assertEquals(employeeResponseDto.getCellPhoneNumber(), result.getCellPhoneNumber());
         assertEquals(employeeResponseDto.getEmail(), result.getEmail());
+    }
+
+    @Test
+    void saveCustomer_WhenIsSuccessful() {
+        CustomerRequestDto customerRequestDto = CustomerRequestDto.builder()
+                .name("test name")
+                .lastName("test last name")
+                .documentId("11111111")
+                .cellPhoneNumber("123332112")
+                .email("test@email.com")
+                .password("password")
+                .roleId(1L)
+                .build();
+
+        Role role = new Role(1L, "ROLE_CUSTOMER", "testDescription");
+
+        User mappedUser = User.builder()
+                .id(null)
+                .name("test name")
+                .lastName("test last name")
+                .documentId("11111111")
+                .cellPhoneNumber("123332112")
+                .email("test@email.com")
+                .password("encrypted-password")
+                .role(role)
+                .build();
+
+        User savedUser = User.builder()
+                .id(1L)
+                .name("test name")
+                .lastName("test last name")
+                .documentId("11111111")
+                .cellPhoneNumber("123332112")
+                .email("test@email.com")
+                .password("encrypted-password")
+                .role(role)
+                .build();
+
+        CustomerResponseDto customerResponseDto = CustomerResponseDto.builder()
+                .id(1L)
+                .name("test name")
+                .lastName("test last name")
+                .documentId("11111111")
+                .cellPhoneNumber("123332112")
+                .email("test@email.com")
+                .build();
+
+        when(passwordEncoder.encode(customerRequestDto.getPassword()))
+                .thenReturn("encrypted-password");
+        when(roleServicePort.findRoleByName("CUSTOMER"))
+                .thenReturn(role);
+        when(modelMapper.map(customerRequestDto, User.class))
+                .thenReturn(mappedUser);
+        when(userServicePort.saveEmployee(mappedUser))
+                .thenReturn(savedUser);
+        when(modelMapper.map(savedUser, CustomerResponseDto.class))
+                .thenReturn(customerResponseDto);
+
+        CustomerResponseDto result = userHandler.saveCustomer(customerRequestDto);
+
+        assertNotNull(result);
+        assertEquals(customerResponseDto.getId(), result.getId());
+        assertEquals(customerResponseDto.getName(), result.getName());
+        assertEquals(customerResponseDto.getLastName(), result.getLastName());
+        assertEquals(customerResponseDto.getDocumentId(), result.getDocumentId());
+        assertEquals(customerResponseDto.getCellPhoneNumber(), result.getCellPhoneNumber());
+        assertEquals(customerResponseDto.getEmail(), result.getEmail());
     }
 
     @Test

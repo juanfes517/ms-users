@@ -4,8 +4,9 @@ public class ApiConstants {
 
     private ApiConstants() {}
 
-    public static final String SAVE_OWNER_DESCRIPTION = "Save a new user owner";
-    public static final String SAVE_EMPLOYEE_DESCRIPTION = "Save a new user employee";
+    public static final String SAVE_OWNER_DESCRIPTION = "Save a new owner user";
+    public static final String SAVE_EMPLOYEE_DESCRIPTION = "Save a new employee user";
+    public static final String SAVE_CUSTOMER_DESCRIPTION = "Save a new customer user";
     public static final String USER_HAS_ROLE_DESCRIPTION = "Check if user has role";
     public static final String USER_HAS_EMAIL_DESCRIPTION = "Check if user has an email";
     public static final String LOGIN_DESCRIPTION = "Login to the system";
