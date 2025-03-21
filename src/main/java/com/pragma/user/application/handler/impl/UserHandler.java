@@ -1,7 +1,9 @@
 package com.pragma.user.application.handler.impl;
 
+import com.pragma.user.application.dto.request.CustomerRequestDto;
 import com.pragma.user.application.dto.request.EmployeeRequestDto;
 import com.pragma.user.application.dto.request.OwnerRequestDto;
+import com.pragma.user.application.dto.response.CustomerResponseDto;
 import com.pragma.user.application.dto.response.EmployeeResponseDto;
 import com.pragma.user.application.dto.response.OwnerResponseDto;
 import com.pragma.user.application.handler.IUserHandler;
@@ -50,6 +52,19 @@ public class UserHandler implements IUserHandler {
         User userSaved = userServicePort.saveEmployee(user);
 
         return modelMapper.map(userSaved, EmployeeResponseDto.class);
+    }
+
+    @Override
+    public CustomerResponseDto saveCustomer(CustomerRequestDto customerRequestDto) {
+        customerRequestDto.setPassword(passwordEncoder.encode(customerRequestDto.getPassword()));
+
+        Role role = roleServicePort.findRoleByName(RoleEnum.CUSTOMER.toString());
+
+        User user = modelMapper.map(customerRequestDto, User.class);
+        user.setRole(role);
+        User userSaved = userServicePort.saveEmployee(user);
+
+        return modelMapper.map(userSaved, CustomerResponseDto.class);
     }
 
     @Override
