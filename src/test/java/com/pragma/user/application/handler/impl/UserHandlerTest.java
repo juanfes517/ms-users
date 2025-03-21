@@ -1,7 +1,9 @@
 package com.pragma.user.application.handler.impl;
 
+import com.pragma.user.application.dto.request.EmployeeRequestDto;
 import com.pragma.user.application.dto.request.OwnerRequestDto;
-import com.pragma.user.application.dto.response.UserResponseDto;
+import com.pragma.user.application.dto.response.EmployeeResponseDto;
+import com.pragma.user.application.dto.response.OwnerResponseDto;
 import com.pragma.user.domain.api.IRoleServicePort;
 import com.pragma.user.domain.api.IUserServicePort;
 import com.pragma.user.domain.model.Role;
@@ -36,7 +38,7 @@ class UserHandlerTest {
     private IRoleServicePort roleServicePort;
 
     @Test
-    void saveOwnerWhenIsValid() {
+    void saveOwner_WhenIsValid() {
         OwnerRequestDto ownerRequestDto = OwnerRequestDto.builder()
                 .name("Paco")
                 .lastName("Torres")
@@ -60,7 +62,7 @@ class UserHandlerTest {
                 .role(role)
                 .build();
 
-        UserResponseDto userResponseDto = UserResponseDto.builder()
+        OwnerResponseDto ownerResponseDto = OwnerResponseDto.builder()
                 .id(1L)
                 .name("Paco")
                 .lastName("Torres")
@@ -72,16 +74,83 @@ class UserHandlerTest {
                 .thenReturn(role);
         when(modelMapper.map(ownerRequestDto, User.class))
                 .thenReturn(userMapped);
-        when(userServicePort.saveUser(userMapped))
+        when(userServicePort.saveOwner(userMapped))
                 .thenReturn(userSaved);
-        when(modelMapper.map(userSaved, UserResponseDto.class))
-                .thenReturn(userResponseDto);
+        when(modelMapper.map(userSaved, OwnerResponseDto.class))
+                .thenReturn(ownerResponseDto);
 
-        UserResponseDto result = userHandler.saveOwner(ownerRequestDto);
+        OwnerResponseDto result = userHandler.saveOwner(ownerRequestDto);
 
-        assertNotNull(userResponseDto);
+        assertNotNull(ownerResponseDto);
         assertEquals("Paco", result.getName());
         assertEquals("Torres", result.getLastName());
+    }
+
+    @Test
+    void saveEmployee_WhenIsSuccessful() {
+        EmployeeRequestDto employeeRequestDto = EmployeeRequestDto.builder()
+                .name("test name")
+                .lastName("test last name")
+                .documentId("11111111")
+                .cellPhoneNumber("123332112")
+                .email("test@email.com")
+                .password("password")
+                .roleId(1L)
+                .build();
+
+        Role role = new Role(1L, "ROLE_EMPLOYEE", "testDescription");
+
+        User mappedUser = User.builder()
+                .id(null)
+                .name("test name")
+                .lastName("test last name")
+                .documentId("11111111")
+                .cellPhoneNumber("123332112")
+                .email("test@email.com")
+                .password("encrypted-password")
+                .role(role)
+                .build();
+
+        User savedUser = User.builder()
+                .id(1L)
+                .name("test name")
+                .lastName("test last name")
+                .documentId("11111111")
+                .cellPhoneNumber("123332112")
+                .email("test@email.com")
+                .password("encrypted-password")
+                .role(role)
+                .build();
+
+        EmployeeResponseDto employeeResponseDto = EmployeeResponseDto.builder()
+                .id(1L)
+                .name("test name")
+                .lastName("test last name")
+                .documentId("11111111")
+                .cellPhoneNumber("123332112")
+                .email("test@email.com")
+                .build();
+
+        when(passwordEncoder.encode(employeeRequestDto.getPassword()))
+                .thenReturn("encrypted-password");
+        when(roleServicePort.findRoleByName("EMPLOYEE"))
+                .thenReturn(role);
+        when(modelMapper.map(employeeRequestDto, User.class))
+                .thenReturn(mappedUser);
+        when(userServicePort.saveEmployee(mappedUser))
+                .thenReturn(savedUser);
+        when(modelMapper.map(savedUser, EmployeeResponseDto.class))
+                .thenReturn(employeeResponseDto);
+
+        EmployeeResponseDto result = userHandler.saveEmployee(employeeRequestDto);
+
+        assertNotNull(employeeResponseDto);
+        assertEquals(employeeResponseDto.getId(), result.getId());
+        assertEquals(employeeResponseDto.getName(), result.getName());
+        assertEquals(employeeResponseDto.getLastName(), result.getLastName());
+        assertEquals(employeeResponseDto.getDocumentId(), result.getDocumentId());
+        assertEquals(employeeResponseDto.getCellPhoneNumber(), result.getCellPhoneNumber());
+        assertEquals(employeeResponseDto.getEmail(), result.getEmail());
     }
 
     @Test

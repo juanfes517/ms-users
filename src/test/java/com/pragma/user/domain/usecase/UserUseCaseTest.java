@@ -2,6 +2,8 @@ package com.pragma.user.domain.usecase;
 
 import com.pragma.user.domain.model.Role;
 import com.pragma.user.domain.model.User;
+import com.pragma.user.domain.spi.IFoodCourtExternalService;
+import com.pragma.user.domain.spi.IJwtSecurityServicePort;
 import com.pragma.user.domain.spi.IUserPersistencePort;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,8 +26,14 @@ class UserUseCaseTest {
     @Mock
     private IUserPersistencePort userPersistencePort;
 
+    @Mock
+    private IFoodCourtExternalService foodCourtExternalService;
+
+    @Mock
+    private IJwtSecurityServicePort jwtSecurityServicePort;
+
     @Test
-    void saveUser() {
+    void saveOwner() {
         // Arrange
         Role role = Role.builder()
                 .id(1L)
@@ -48,7 +56,7 @@ class UserUseCaseTest {
         when(userPersistencePort.save(any(User.class))).thenReturn(user);
 
         // Act
-        User savedUser = userUseCase.saveUser(user);
+        User savedUser = userUseCase.saveOwner(user);
 
         // Assert
         assertNotNull(savedUser);
@@ -185,5 +193,60 @@ class UserUseCaseTest {
         boolean result = userUseCase.userHasEmail(userId, email);
 
         assertFalse(result);
+    }
+
+    @Test
+    void saveEmployee_WhenIsSuccessful(){
+        String tokenEmail = "test@mail.com";
+
+        User ownerUser = User.builder()
+                .id(1L)
+                .name("Jonh")
+                .lastName("Smith")
+                .documentId("4345345")
+                .cellPhoneNumber("+571234567890")
+                .email("jonh@mail.com")
+                .password("encrypted-password")
+                .role(new Role(1L, "ROLE_OWNER", "restaurant owner"))
+                .build();
+
+        User user = User.builder()
+                .name("Pedro")
+                .lastName("Lopez")
+                .documentId("1234567890")
+                .cellPhoneNumber("+571234567890")
+                .email("pedro@mail.com")
+                .password("encrypted-password")
+                .role(new Role(1L, "ROLE_EMPLOYEE", "restaurant employee"))
+                .build();
+
+        User savedEmployee = User.builder()
+                .id(2L)
+                .name("Pedro")
+                .lastName("Lopez")
+                .documentId("1234567890")
+                .cellPhoneNumber("+571234567890")
+                .email("pedro@mail.com")
+                .password("encrypted-password")
+                .role(new Role(1L, "ROLE_EMPLOYEE", "restaurant employee"))
+                .build();
+
+        when(jwtSecurityServicePort.getSubject())
+                .thenReturn(tokenEmail);
+        when(userPersistencePort.findByEmail(tokenEmail))
+                .thenReturn(ownerUser);
+        when(userPersistencePort
+                .save(user)).thenReturn(savedEmployee);
+
+        User result = userUseCase.saveEmployee(user);
+
+        assertNotNull(result);
+        assertEquals(savedEmployee.getName(), result.getName());
+        assertEquals(savedEmployee.getLastName(), result.getLastName());
+        assertEquals(savedEmployee.getDocumentId(), result.getDocumentId());
+        assertEquals(savedEmployee.getCellPhoneNumber(), result.getCellPhoneNumber());
+        assertEquals(savedEmployee.getEmail(), result.getEmail());
+        assertEquals(savedEmployee.getPassword(), result.getPassword());
+        assertEquals(savedEmployee.getRole().getName(), result.getRole().getName());
     }
 }

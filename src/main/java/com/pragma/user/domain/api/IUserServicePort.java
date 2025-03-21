@@ -4,7 +4,9 @@ import com.pragma.user.domain.model.User;
 
 public interface IUserServicePort {
 
-    User saveUser(User user);
+    User saveOwner(User user);
+
+    User saveEmployee(User user);
 
     boolean userHasRole(Long userId, String roleName);
 

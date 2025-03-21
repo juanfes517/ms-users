@@ -11,4 +11,5 @@ public class ExceptionConstants {
     public static final String DATE_OF_BIRTH_CANNOT_BE_BLANK = "Date of Birth cannot be blank";
     public static final String EMAIL_CANNOT_BE_BLANK = "Email cannot be blank";
     public static final String PASSWORD_CANNOT_BE_BLANK = "Password cannot be blank";
+    public static final String ROLE_ID_CANNOT_BE_BLANK = "The role id cannot be blank";
 }

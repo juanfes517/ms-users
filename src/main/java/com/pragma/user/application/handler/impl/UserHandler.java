@@ -1,7 +1,9 @@
 package com.pragma.user.application.handler.impl;
 
+import com.pragma.user.application.dto.request.EmployeeRequestDto;
 import com.pragma.user.application.dto.request.OwnerRequestDto;
-import com.pragma.user.application.dto.response.UserResponseDto;
+import com.pragma.user.application.dto.response.EmployeeResponseDto;
+import com.pragma.user.application.dto.response.OwnerResponseDto;
 import com.pragma.user.application.handler.IUserHandler;
 import com.pragma.user.domain.api.IRoleServicePort;
 import com.pragma.user.domain.api.IUserServicePort;
@@ -25,16 +27,29 @@ public class UserHandler implements IUserHandler {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserResponseDto saveOwner(OwnerRequestDto ownerRequestDto) {
+    public OwnerResponseDto saveOwner(OwnerRequestDto ownerRequestDto) {
         ownerRequestDto.setPassword(passwordEncoder.encode(ownerRequestDto.getPassword()));
 
         Role role = roleServicePort.findRoleByName(RoleEnum.OWNER.toString());
 
         User userMapped = modelMapper.map(ownerRequestDto, User.class);
         userMapped.setRole(role);
-        User userSaved = userServicePort.saveUser(userMapped);
+        User userSaved = userServicePort.saveOwner(userMapped);
 
-        return modelMapper.map(userSaved, UserResponseDto.class);
+        return modelMapper.map(userSaved, OwnerResponseDto.class);
+    }
+
+    @Override
+    public EmployeeResponseDto saveEmployee(EmployeeRequestDto employeeRequestDto) {
+        employeeRequestDto.setPassword(passwordEncoder.encode(employeeRequestDto.getPassword()));
+
+        Role role = roleServicePort.findRoleByName(RoleEnum.EMPLOYEE.toString());
+
+        User user = modelMapper.map(employeeRequestDto, User.class);
+        user.setRole(role);
+        User userSaved = userServicePort.saveEmployee(user);
+
+        return modelMapper.map(userSaved, EmployeeResponseDto.class);
     }
 
     @Override

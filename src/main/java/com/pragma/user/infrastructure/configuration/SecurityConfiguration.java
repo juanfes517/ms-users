@@ -36,6 +36,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(http -> {
                     http.requestMatchers(SecurityConstants.getPublicEndpoints()).permitAll();
                     http.requestMatchers(SecurityConstants.getAdminEndpoints()).hasRole(RoleEnum.ADMIN.toString());
+                    http.requestMatchers(SecurityConstants.getOwnerEndpoints()).hasRole(RoleEnum.OWNER.toString());
                     http.anyRequest().authenticated();
                 })
                 .addFilterBefore(new JwtTokenValidator(jwtSecurityServicePort), BasicAuthenticationFilter.class)

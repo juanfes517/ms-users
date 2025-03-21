@@ -15,11 +15,19 @@ public class SecurityConstants {
             "/api/v1/users/owner"
     };
 
+    private static final String[] OWNER_ENDPOINTS = {
+            "/api/v1/users/employee"
+    };
+
     public static String[] getPublicEndpoints() {
         return PUBLIC_ENDPOINTS.clone();
     }
 
     public static String[] getAdminEndpoints() {
         return ADMIN_ENDPOINTS.clone();
+    }
+
+    public static String[] getOwnerEndpoints() {
+        return OWNER_ENDPOINTS.clone();
     }
 }

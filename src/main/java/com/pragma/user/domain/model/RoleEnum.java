@@ -3,7 +3,8 @@ package com.pragma.user.domain.model;
 public enum RoleEnum {
 
     ADMIN("ADMIN"),
-    OWNER("OWNER");
+    OWNER("OWNER"),
+    EMPLOYEE("EMPLOYEE");
 
     private final String roleName;
 

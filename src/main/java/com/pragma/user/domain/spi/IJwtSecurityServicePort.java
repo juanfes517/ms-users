@@ -9,4 +9,6 @@ public interface IJwtSecurityServicePort {
     String getClaim(String token, String claim);
 
     String getSubject(String token);
+
+    String getSubject();
 }

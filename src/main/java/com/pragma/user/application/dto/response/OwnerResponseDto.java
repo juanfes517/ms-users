@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Setter
 @Getter
 @Builder
-public class UserResponseDto {
+public class OwnerResponseDto {
     private Long id;
     private String name;
     private String lastName;

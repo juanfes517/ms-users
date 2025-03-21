@@ -12,8 +12,6 @@ public class RoleUseCase implements IRoleServicePort {
 
     @Override
     public Role findRoleByName(String roleName) {
-
-        return rolePersistencePort.findRoleByName(roleName)
-                .orElseGet(() -> rolePersistencePort.saveRole(Role.builder().name(roleName).build()));
+        return rolePersistencePort.findRoleByName(roleName);
     }
 }
