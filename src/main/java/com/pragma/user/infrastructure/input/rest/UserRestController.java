@@ -1,7 +1,9 @@
 package com.pragma.user.infrastructure.input.rest;
 
+import com.pragma.user.application.dto.request.CustomerRequestDto;
 import com.pragma.user.application.dto.request.EmployeeRequestDto;
 import com.pragma.user.application.dto.request.OwnerRequestDto;
+import com.pragma.user.application.dto.response.CustomerResponseDto;
 import com.pragma.user.application.dto.response.EmployeeResponseDto;
 import com.pragma.user.application.dto.response.OwnerResponseDto;
 import com.pragma.user.application.handler.IUserHandler;
@@ -49,6 +51,20 @@ public class UserRestController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(userHandler.saveEmployee(employeeRequestDto));
+    }
+
+    @Operation(summary = ApiConstants.SAVE_CUSTOMER_DESCRIPTION)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = ApiConstants.OBJECT_CREATED_DESCRIPTION, content = @Content),
+            @ApiResponse(responseCode = "400", description = ApiConstants.BAD_REQUEST_DESCRIPTION, content = @Content),
+            @ApiResponse(responseCode = "404", description = ApiConstants.NOT_FOUND_DESCRIPTION, content = @Content),
+            @ApiResponse(responseCode = "409", description = ApiConstants.CONFLICT_DESCRIPTION, content = @Content)
+    })
+    @PostMapping("/customer")
+    public ResponseEntity<CustomerResponseDto> saveCustomer(@Valid @RequestBody CustomerRequestDto customerRequestDto) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(userHandler.saveCustomer(customerRequestDto));
     }
 
     @Operation(summary = ApiConstants.USER_HAS_ROLE_DESCRIPTION)
