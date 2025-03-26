@@ -76,4 +76,9 @@ public class UserHandler implements IUserHandler {
     public boolean userHasEmail(Long userId, String email) {
         return userServicePort.userHasEmail(userId, email);
     }
+
+    @Override
+    public Long findUserIdByEmail(String email) {
+        return userServicePort.findUserIdByEmail(email);
+    }
 }
