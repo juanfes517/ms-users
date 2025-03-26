@@ -269,4 +269,18 @@ class UserHandlerTest {
 
         assertFalse(result);
     }
+
+    @Test
+    void findUserIdByEmail() {
+        String email = "test@email.com";
+        Long userId = 1L;
+
+        when(userServicePort.findUserIdByEmail(email))
+                .thenReturn(userId);
+
+        Long result = userHandler.findUserIdByEmail(email);
+
+        assertNotNull(result);
+        assertEquals(userId, result);
+    }
 }

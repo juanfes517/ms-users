@@ -288,4 +288,27 @@ class UserUseCaseTest {
         assertEquals(savedUser.getPassword(), result.getPassword());
         assertEquals(savedUser.getRole().getName(), result.getRole().getName());
     }
+
+    @Test
+    void findUserIdByEmail() {
+        String email = "test@mail.com";
+        User user = User.builder()
+                .id(1L)
+                .name("Pedro")
+                .lastName("Lopez")
+                .documentId("1234567890")
+                .cellPhoneNumber("+571234567890")
+                .email(email)
+                .password("encrypted-password")
+                .role(new Role(1L, "ROLE_CUSTOMER", "restaurant employee"))
+                .build();
+
+        when(userPersistencePort.findByEmail(email))
+                .thenReturn(user);
+
+        Long result = userUseCase.findUserIdByEmail(email);
+
+        assertNotNull(result);
+        assertEquals(user.getId(), result);
+    }
 }

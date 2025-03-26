@@ -60,4 +60,10 @@ public class UserUseCase implements IUserServicePort {
 
         return email.equals(userEmail);
     }
+
+    @Override
+    public Long findUserIdByEmail(String email) {
+        User user = userPersistencePort.findByEmail(email);
+        return user.getId();
+    }
 }

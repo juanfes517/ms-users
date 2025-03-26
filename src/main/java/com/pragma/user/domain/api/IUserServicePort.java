@@ -13,4 +13,6 @@ public interface IUserServicePort {
     boolean userHasRole(Long userId, String roleName);
 
     boolean userHasEmail(Long userId, String email);
+
+    Long findUserIdByEmail(String email);
 }
