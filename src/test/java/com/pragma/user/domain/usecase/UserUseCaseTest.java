@@ -311,4 +311,29 @@ class UserUseCaseTest {
         assertNotNull(result);
         assertEquals(user.getId(), result);
     }
+
+    @Test
+    void findCellPhoneNumberById_WhenIsSuccessful() {
+        Long userId = 1L;
+        String cellPhoneNumber = "+571234567890";
+
+        User user = User.builder()
+                .id(userId)
+                .name("Pedro")
+                .lastName("Lopez")
+                .documentId("1234567890")
+                .cellPhoneNumber(cellPhoneNumber)
+                .email("test@mail.com")
+                .password("encrypted-password")
+                .role(new Role(1L, "CUSTOMER", "restaurant employee"))
+                .build();
+
+        when(userPersistencePort.findById(userId))
+                .thenReturn(user);
+
+        String result = userUseCase.findCellPhoneNumberById(userId);
+
+        assertNotNull(result);
+        assertEquals(cellPhoneNumber, result);
+    }
 }

@@ -47,7 +47,7 @@ class UserHandlerTest {
                 .password("password")
                 .build();
 
-        Role role = new Role(1L, "ROLE_OWNER", "testDescription");
+        Role role = new Role(1L, "OWNER", "testDescription");
 
         User userMapped = User.builder()
                 .name("Paco")
@@ -72,7 +72,7 @@ class UserHandlerTest {
 
         when(passwordEncoder.encode(ownerRequestDto.getPassword()))
                 .thenReturn("encryptedPassword");
-        when(roleServicePort.findRoleByName("ROLE_OWNER"))
+        when(roleServicePort.findRoleByName("OWNER"))
                 .thenReturn(role);
         when(modelMapper.map(ownerRequestDto, User.class))
                 .thenReturn(userMapped);
@@ -167,7 +167,7 @@ class UserHandlerTest {
                 .roleId(1L)
                 .build();
 
-        Role role = new Role(1L, "ROLE_CUSTOMER", "testDescription");
+        Role role = new Role(1L, "CUSTOMER", "testDescription");
 
         User mappedUser = User.builder()
                 .id(null)
@@ -206,7 +206,7 @@ class UserHandlerTest {
                 .thenReturn(role);
         when(modelMapper.map(customerRequestDto, User.class))
                 .thenReturn(mappedUser);
-        when(userServicePort.saveEmployee(mappedUser))
+        when(userServicePort.saveCustomer(mappedUser))
                 .thenReturn(savedUser);
         when(modelMapper.map(savedUser, CustomerResponseDto.class))
                 .thenReturn(customerResponseDto);
