@@ -283,4 +283,18 @@ class UserHandlerTest {
         assertNotNull(result);
         assertEquals(userId, result);
     }
+
+    @Test
+    void findCellPhoneNumberById_WhenIsSuccessful() {
+        Long userId = 1L;
+        String cellPhoneNumber = "22222222";
+
+        when(userServicePort.findCellPhoneNumberById(userId))
+                .thenReturn(cellPhoneNumber);
+
+        String result = userHandler.findCellPhoneNumberById(userId);
+
+        assertNotNull(result);
+        assertEquals(cellPhoneNumber, result);
+    }
 }
