@@ -15,4 +15,6 @@ public interface IUserServicePort {
     boolean userHasEmail(Long userId, String email);
 
     Long findUserIdByEmail(String email);
+
+    String findCellPhoneNumberById(Long userId);
 }

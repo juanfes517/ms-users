@@ -66,4 +66,10 @@ public class UserUseCase implements IUserServicePort {
         User user = userPersistencePort.findByEmail(email);
         return user.getId();
     }
+
+    @Override
+    public String findCellPhoneNumberById(Long userId) {
+        User user = userPersistencePort.findById(userId);
+        return user.getCellPhoneNumber();
+    }
 }
