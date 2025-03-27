@@ -10,6 +10,7 @@ public class ApiConstants {
     public static final String USER_HAS_ROLE_DESCRIPTION = "Check if user has role";
     public static final String USER_HAS_EMAIL_DESCRIPTION = "Check if user has an email";
     public static final String USER_ID_BY_EMAIL_DESCRIPTION = "Find the user id by the email";
+    public static final String CELL_PHONE_NUMBER_BY_ID_DESCRIPTION = "Find the user id by the email";
     public static final String LOGIN_DESCRIPTION = "Login to the system";
 
     public static final String OK_DESCRIPTION = "Request successful";
