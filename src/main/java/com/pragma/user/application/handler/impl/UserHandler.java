@@ -81,4 +81,9 @@ public class UserHandler implements IUserHandler {
     public Long findUserIdByEmail(String email) {
         return userServicePort.findUserIdByEmail(email);
     }
+
+    @Override
+    public String findCellPhoneNumberById(Long userId) {
+        return userServicePort.findCellPhoneNumberById(userId);
+    }
 }
