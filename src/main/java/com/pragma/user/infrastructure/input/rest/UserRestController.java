@@ -97,6 +97,16 @@ public class UserRestController {
         return ResponseEntity.ok(userHandler.findUserIdByEmail(email));
     }
 
+    @Operation(summary = ApiConstants.USER_EMAIL_BY_ID_DESCRIPTION)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = ApiConstants.SUCCESS_DESCRIPTION, content = @Content),
+            @ApiResponse(responseCode = "404", description = ApiConstants.NOT_FOUND_DESCRIPTION, content = @Content)
+    })
+    @GetMapping("/email")
+    public ResponseEntity<String> getEmailByUserId(@RequestParam Long userId) {
+        return ResponseEntity.ok(userHandler.findEmailByUserId(userId));
+    }
+
     @Operation(summary = ApiConstants.CELL_PHONE_NUMBER_BY_ID_DESCRIPTION)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = ApiConstants.SUCCESS_DESCRIPTION, content = @Content),
