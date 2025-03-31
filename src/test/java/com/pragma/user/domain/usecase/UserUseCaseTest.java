@@ -290,7 +290,7 @@ class UserUseCaseTest {
     }
 
     @Test
-    void findUserIdByEmail() {
+    void findUserIdByEmail_WhenIsSuccessful() {
         String email = "test@mail.com";
         User user = User.builder()
                 .id(1L)
@@ -335,5 +335,29 @@ class UserUseCaseTest {
 
         assertNotNull(result);
         assertEquals(cellPhoneNumber, result);
+    }
+
+    @Test
+    void findEmailByUserId_WhenIsSuccessful() {
+        Long userId = 1L;
+
+        User user = User.builder()
+                .id(userId)
+                .name("Pedro")
+                .lastName("Lopez")
+                .documentId("1234567890")
+                .cellPhoneNumber("+571234567890")
+                .email("test@mail.com")
+                .password("encrypted-password")
+                .role(new Role(1L, "ROLE_CUSTOMER", "restaurant employee"))
+                .build();
+
+        when(userPersistencePort.findById(userId))
+                .thenReturn(user);
+
+        String result = userUseCase.findEmailByUserId(userId);
+
+        assertNotNull(result);
+        assertEquals(user.getEmail(), result);
     }
 }
