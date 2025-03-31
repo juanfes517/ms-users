@@ -83,6 +83,11 @@ public class UserHandler implements IUserHandler {
     }
 
     @Override
+    public String findEmailByUserId(Long userId) {
+        return userServicePort.findEmailByUserId(userId);
+    }
+
+    @Override
     public String findCellPhoneNumberById(Long userId) {
         return userServicePort.findCellPhoneNumberById(userId);
     }

@@ -297,4 +297,18 @@ class UserHandlerTest {
         assertNotNull(result);
         assertEquals(cellPhoneNumber, result);
     }
+
+    @Test
+    void findEmailByUserId_WhenIsSuccessful() {
+        Long userId = 1L;
+        String email = "test@email.com";
+
+        when(userServicePort.findEmailByUserId(userId))
+                .thenReturn(email);
+
+        String result = userHandler.findEmailByUserId(userId);
+
+        assertNotNull(result);
+        assertEquals(email, result);
+    }
 }
