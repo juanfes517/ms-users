@@ -9,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -25,7 +24,7 @@ class AuthHandlerTest {
     private IAuthServicePort authServicePort;
 
     @Test
-    void login_WhenIsSuccessfull() {
+    void login_WhenIsSuccessful() {
         String accessToken = "Access-Token";
 
         LoginRequestDto loginRequestDto = LoginRequestDto.builder()

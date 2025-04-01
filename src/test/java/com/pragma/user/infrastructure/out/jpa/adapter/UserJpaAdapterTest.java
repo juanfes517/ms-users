@@ -7,7 +7,6 @@ import com.pragma.user.infrastructure.helper.constants.ExceptionConstants;
 import com.pragma.user.infrastructure.out.jpa.entity.RoleEntity;
 import com.pragma.user.infrastructure.out.jpa.entity.UserEntity;
 import com.pragma.user.infrastructure.out.jpa.repository.UserRepository;
-import jakarta.persistence.PersistenceException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
