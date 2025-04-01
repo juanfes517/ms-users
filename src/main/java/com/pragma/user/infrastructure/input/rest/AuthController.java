@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping(ApiConstants.AUTH_CONTROLLER)
 @RequiredArgsConstructor
-public class AuthRestController {
+public class AuthController {
 
     private final IAuthHandler authHandler;
 
@@ -30,7 +30,7 @@ public class AuthRestController {
             @ApiResponse(responseCode = "403", description = ApiConstants.FORBIDDEN_DESCRIPTION, content = @Content),
             @ApiResponse(responseCode = "404", description = ApiConstants.NOT_FOUND_DESCRIPTION, content = @Content),
     })
-    @PostMapping("/login")
+    @PostMapping(ApiConstants.LOGIN_ENDPOINT)
     public ResponseEntity<AuthResponseDto> login (@Valid @RequestBody LoginRequestDto loginRequestDto) {
         return ResponseEntity.ok(authHandler.login(loginRequestDto));
     }
